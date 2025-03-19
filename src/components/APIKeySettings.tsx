@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { getApiKey, saveApiKey } from '@/services/weatherService';
 import { Button } from "@/components/ui/button";
@@ -23,6 +22,12 @@ const APIKeySettings = () => {
     const storedKey = getApiKey();
     if (storedKey) {
       setApiKey(storedKey);
+    } else {
+      // Set default API key if none exists
+      const defaultApiKey = "6be22578aa5dad675e4eee8caf2e1e5f";
+      saveApiKey(defaultApiKey);
+      setApiKey(defaultApiKey);
+      toast.success('Default API key has been set');
     }
   }, []);
 

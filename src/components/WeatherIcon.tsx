@@ -15,8 +15,8 @@ export const LucideIcon: React.FC<LucideIconProps> = ({
   color,
   className = ''
 }) => {
-  // Dynamic import of the icon from lucide-react
-  const IconComponent = LucideIcons[icon as keyof typeof LucideIcons] || LucideIcons.Cloud;
+  // Using type assertion to fix the TypeScript error
+  const IconComponent = (LucideIcons as Record<string, React.FC<any>>)[icon] || LucideIcons.Cloud;
   
   return (
     <IconComponent 
