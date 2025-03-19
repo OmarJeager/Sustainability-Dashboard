@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Droplets, 
@@ -6,11 +5,14 @@ import {
   Wind, 
   Sunrise, 
   Sunset,
-  Cloud
+  Cloud,
+  Sun,
+  Moon,
+  Eye
 } from 'lucide-react';
 import { WeatherData } from '@/services/weatherService';
-import { formatTemp, formatTime, getWeatherIcon, isDaytime } from '@/utils/weatherUtils';
-import { LucideIcon } from '@/components/WeatherIcon';
+import { formatTemp, formatTime, getWeatherIcon, isDaytime } from '@/utils/weatherUtils'; // Ensure these utility functions are correctly implemented and exported
+import { LucideIcon } from '@/components/WeatherIcon'; // Ensure this component exists and is correctly exported
 
 interface CurrentWeatherProps {
   data: WeatherData;
@@ -26,7 +28,10 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, units, className 
     wind, 
     sys, 
     dt,
-    timezone = 0
+    timezone = 0,
+    visibility,
+    clouds,
+    uvi
   } = data;
   
   const isDay = isDaytime(dt, sys.sunrise, sys.sunset);
@@ -66,7 +71,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, units, className 
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <DetailItem 
             icon={<Droplets className="text-blue-500" />}
             label="Humidity"
@@ -101,6 +106,31 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ data, units, className 
             icon={<Cloud className="text-slate-500" />}
             label="Updated"
             value={formatTime(dt, timezone)}
+          />
+          
+          {/* New added details */}
+          <DetailItem 
+            icon={<Eye className="text-gray-600" />}
+            label="Visibility"
+            value={`${visibility / 1000} km`} // Visibility in kilometers
+          />
+          
+          <DetailItem 
+            icon={<Sun className="text-yellow-400" />}
+            label="UV Index"
+            value={uvi}
+          />
+          
+          <DetailItem 
+            icon={<Cloud className="text-gray-500" />}
+            label="Cloud Cover"
+            value={`${clouds.all}%`}
+          />
+
+          <DetailItem 
+            icon={<Moon className="text-gray-400" />}
+            label="Moon Phase"
+            value="Waning Crescent" // Replace with dynamic moon phase data if available in the API or keep as a placeholder
           />
         </div>
       </div>
