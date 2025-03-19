@@ -13,6 +13,7 @@ import CurrentWeather from '@/components/CurrentWeather';
 import Forecast from '@/components/Forecast';
 import SearchBar from '@/components/SearchBar';
 import APIKeySettings from '@/components/APIKeySettings';
+import EmailSubscription from '@/components/EmailSubscription';
 import { toast } from 'sonner';
 import { getWeatherBackground, isDaytime } from '@/utils/weatherUtils';
 
@@ -216,6 +217,11 @@ const Index = () => {
             <>
               <CurrentWeather data={currentWeather} units={units} />
               <Forecast data={forecast} units={units} />
+              
+              {/* Add the email subscription component */}
+              <div className="mt-8">
+                <EmailSubscription />
+              </div>
             </>
           )}
         </main>

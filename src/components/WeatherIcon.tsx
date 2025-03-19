@@ -15,8 +15,8 @@ export const LucideIcon: React.FC<LucideIconProps> = ({
   color,
   className = ''
 }) => {
-  // Using type assertion to fix the TypeScript error
-  const IconComponent = (LucideIcons as Record<string, React.FC<any>>)[icon] || LucideIcons.Cloud;
+  // First cast to unknown, then to Record to fix TypeScript error
+  const IconComponent = ((LucideIcons as unknown) as Record<string, React.FC<any>>)[icon] || LucideIcons.Cloud;
   
   return (
     <IconComponent 
